@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { useState } from "react";
+import { getJobs } from "./component/apiFetch";
+import SearchBar from "./component/searchBar";
+
+import "./App.css";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [type, setType] = useState("");
+	const [location, setLocation] = useState("");
+	const [fulltime, setFulltime] = useState(false);
+	// const [jobs, setJobs] = useState([]);
+	// const [loading, setloading] = useState();
+	// const [error, seterror] = useState();
+
+	const onSubmit = async (e) => {
+		e.preventDefault();
+		const data = await getJobs(type, fulltime, location);
+		console.log(data);
+	};
+	return (
+		<div>
+			<SearchBar
+				onSubmit={onSubmit}
+				location={location}
+				fulltime={fulltime}
+				type={type}
+				setType={setType}
+				setLocation={setLocation}
+				setFulltime={setFulltime}
+			/>
+		</div>
+	);
 }
 
 export default App;
