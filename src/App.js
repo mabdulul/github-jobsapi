@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getJobs } from "./component/apiFetch";
 import SearchBar from "./component/searchBar";
 
@@ -12,6 +12,14 @@ function App() {
 	// const [jobs, setJobs] = useState([]);
 	// const [loading, setloading] = useState();
 	// const [error, seterror] = useState();
+
+	useEffect(() => {
+		const fetchJobs = async () => {
+			const data = await getJobs(type, fulltime, location);
+			console.log(data);
+		};
+		fetchJobs();
+	}, [type, fulltime, location]);
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
