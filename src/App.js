@@ -14,14 +14,23 @@ function App() {
 	const [location, setLocation] = useState("");
 	const [fulltime, setFulltime] = useState(false);
 
-	// const [loading, setloading] = useState();
-	// const [error, seterror] = useState();
+	const [loading, setloading] = useState(true);
+	const [error, seterror] = useState();
 
 	useEffect(() => {
+		setloading(true);
 		const fetchJobs = async () => {
-			await getJobs(allJobs, allJobs, allJobs, 1).then((data) =>
-				setJobs([...data])
-			);
+			await getJobs(allJobs, allJobs, allJobs, 1)
+				.then((data) => {
+					setJobs([...data]);
+					setloading(false);
+					return data;
+				})
+				.then((res) => {
+					console.log(res);
+					return res;
+				})
+				.catch((error) => console.log(error));
 		};
 		fetchJobs();
 	}, [allJobs]);
@@ -30,9 +39,17 @@ function App() {
 		e.preventDefault();
 		setJobs([]);
 		setPage(1);
-		const thisjobs = await getJobs(type, fulltime, location, page);
-		console.log("On Submit Jobs", thisjobs);
-		await setJobs([...thisjobs]);
+		await getJobs(type, fulltime, location, page)
+			.then((data) => {
+				setJobs([...data]);
+				setloading(false);
+				return data;
+			})
+			.then((res) => {
+				console.log("here res", res);
+				return res;
+			})
+			.catch((error) => console.log(error));
 	};
 
 	const LoadMore = async (e) => {
@@ -45,6 +62,8 @@ function App() {
 		setJobs((jobs) => [...jobs, ...data]);
 		console.log("after LoadMore Jobs", jobs.length);
 	};
+
+	if (loading) return "it is loading";
 	return (
 		<>
 			<div>
