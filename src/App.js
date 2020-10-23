@@ -1,69 +1,40 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { getJobs } from "./component/apiFetch";
+//import { getJobs } from "./component/apiFetch";
 import SearchBar from "./component/searchBar";
 import JobsPagination from "./component/JobsPagination";
+import useFetchJobs from "./component/useFetchJobs";
 
 import "./App.css";
 
 function App() {
-	const allJobs = "";
-	let [jobs, setJobs] = useState([]);
 	let [page, setPage] = useState(1);
 	const [type, setType] = useState("");
 	const [location, setLocation] = useState("");
 	const [fulltime, setFulltime] = useState(false);
 
-	const [loading, setloading] = useState(true);
-	const [error, seterror] = useState();
+	const { loading, error, jobs, LoadMore } = useFetchJobs(
+		type,
+		fulltime,
+		location,
+		page
+	);
+
+	const onSubmit = (e) => {
+		setPage(1);
+		e.preventDefault();
+		console.log(jobs);
+	};
 
 	useEffect(() => {
-		setloading(true);
-		const fetchJobs = async () => {
-			await getJobs(allJobs, allJobs, allJobs, 1)
-				.then((data) => {
-					setJobs([...data]);
-					setloading(false);
-					return data;
-				})
-				.then((res) => {
-					console.log(res);
-					return res;
-				})
-				.catch((error) => console.log(error));
-		};
-		fetchJobs();
-	}, [allJobs]);
+		setType("");
+		setLocation("");
+		setFulltime("");
+	}, []);
 
-	const onSubmit = async (e) => {
-		e.preventDefault();
-		setJobs([]);
-		setPage(1);
-		await getJobs(type, fulltime, location, page)
-			.then((data) => {
-				setJobs([...data]);
-				setloading(false);
-				return data;
-			})
-			.then((res) => {
-				console.log("here res", res);
-				return res;
-			})
-			.catch((error) => console.log(error));
-	};
+	// if (loading) return "it is loading";
 
-	const LoadMore = async (e) => {
-		e.preventDefault();
-		console.log("Before LoadMore Jobs", jobs.length);
-		setPage(++page);
-		let data = await getJobs(type, fulltime, location, page);
-		console.log("data length", data.length);
-
-		setJobs((jobs) => [...jobs, ...data]);
-		console.log("after LoadMore Jobs", jobs.length);
-	};
-
-	if (loading) return "it is loading";
+	console.log(jobs);
 	return (
 		<>
 			<div>
