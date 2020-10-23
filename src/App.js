@@ -20,7 +20,7 @@ function App() {
 	useEffect(() => {
 		setloading(true);
 		const fetchJobs = async () => {
-			await getJobs(allJobs, allJobs, allJobs, 1)
+			await getJobs()
 				.then((data) => {
 					setJobs([...data]);
 					setloading(false);
@@ -33,9 +33,10 @@ function App() {
 				.catch((error) => console.log(error));
 		};
 		fetchJobs();
-	}, [allJobs]);
+	}, []);
 
 	const onSubmit = async (e) => {
+		setloading(true);
 		e.preventDefault();
 		setJobs([]);
 		setPage(1);
@@ -46,7 +47,6 @@ function App() {
 				return data;
 			})
 			.then((res) => {
-				console.log("here res", res);
 				return res;
 			})
 			.catch((error) => console.log(error));
@@ -54,16 +54,17 @@ function App() {
 
 	const LoadMore = async (e) => {
 		e.preventDefault();
+		setloading(true);
 		console.log("Before LoadMore Jobs", jobs.length);
 		setPage(++page);
 		let data = await getJobs(type, fulltime, location, page);
 		console.log("data length", data.length);
 
 		setJobs((jobs) => [...jobs, ...data]);
+		setloading(false);
 		console.log("after LoadMore Jobs", jobs.length);
 	};
 
-	if (loading) return "it is loading";
 	return (
 		<>
 			<div>
@@ -78,6 +79,15 @@ function App() {
 				/>
 			</div>
 			<JobsPagination page={page} setPage={setPage} LoadMore={LoadMore} />
+			{loading && <h1>Loading...</h1>}
+			{error && <h1>Error. Try Refreshing.</h1>}
+			<>
+				{jobs.map((jo) => (
+					<>
+						<p>{jo.title}</p>;
+					</>
+				))}
+			</>
 		</>
 	);
 }
