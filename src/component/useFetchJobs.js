@@ -6,7 +6,7 @@ function reducer(state, action) {
 		case "FETCH_SUCCESS":
 			return {
 				loading: false,
-				jobs: action.payload,
+				jobs: [...action.payload],
 				error: "",
 			};
 		case "FETCH_ERROR":
@@ -37,9 +37,10 @@ export default function useFetchJobs(type, fulltime, location, page) {
 					cancelToken: cancelToken1.token,
 				}
 			)
-			.then((response) =>
-				dispatch({ type: `FETCH_SUCCESS`, payload: response.data })
-			)
+			.then((response) => {
+				console.log(response);
+				dispatch({ type: `FETCH_SUCCESS`, payload: response.data });
+			})
 			.catch((e) => {
 				if (axios.isCancel(e)) return dispatch({ type: "FETCH_ERROR" });
 			});

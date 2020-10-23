@@ -13,12 +13,7 @@ function App() {
 	const [location, setLocation] = useState("");
 	const [fulltime, setFulltime] = useState(false);
 
-	const { loading, error, jobs, LoadMore } = useFetchJobs(
-		type,
-		fulltime,
-		location,
-		page
-	);
+	const { loading, error, jobs } = useFetchJobs(type, fulltime, location, page);
 
 	const onSubmit = (e) => {
 		setPage(1);
@@ -31,6 +26,12 @@ function App() {
 		setLocation("");
 		setFulltime("");
 	}, []);
+
+	const LoadMore = async (e) => {
+		e.preventDefault();
+
+		setPage(++page);
+	};
 
 	// if (loading) return "it is loading";
 
