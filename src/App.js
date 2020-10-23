@@ -50,6 +50,11 @@ function App() {
 				/>
 			</div>
 			<JobsPagination page={page} setPage={setPage} LoadMore={LoadMore} />
+			{jobs.map((jo) => (
+				<>
+					<p>{jo.title}</p>;
+				</>
+			))}
 		</>
 	);
 }
