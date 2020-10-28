@@ -1,93 +1,125 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import { getJobs } from "./component/apiFetch";
 import SearchBar from "./component/searchBar";
 import JobsPagination from "./component/JobsPagination";
 
 import "./App.css";
 
+const initalState = {
+	loading: true,
+	jobs: [],
+	error: " ",
+};
+
+function reducer(state, action) {
+	switch (action.type) {
+		case "FETCH_CLEAR":
+			return {
+				loading: true,
+				jobs: [],
+				error: " ",
+			};
+		case "FETCH_LOADING":
+			return {
+				loading: true,
+				jobs: [],
+			};
+		case "FETCH_SUCCESS":
+			return {
+				loading: false,
+				jobs: action.payload,
+				error: "",
+			};
+		case "FETCH_ERROR":
+			return {
+				loading: false,
+				jobs: [],
+				error: "Something went wrong",
+			};
+		case "FETCH_LOAD_MORE_LOADING":
+			return {
+				...state,
+				loading: true,
+			};
+		case "FETCH_LOADMORE":
+			return { jobs: [...state.jobs, ...action.payload] };
+		default:
+			return state;
+	}
+}
+
 function App() {
-	const allJobs = "";
-	let [jobs, setJobs] = useState([]);
 	let [page, setPage] = useState(1);
 	const [type, setType] = useState("");
 	const [location, setLocation] = useState("");
 	const [fulltime, setFulltime] = useState(false);
+	const [state, dispatch] = useReducer(reducer, initalState);
 
-	const [loading, setloading] = useState(true);
-	const [error, seterror] = useState();
-
-	useEffect(() => {
-		setloading(true);
-		const fetchJobs = async () => {
-			await getJobs()
-				.then((data) => {
-					setJobs([...data]);
-					setloading(false);
-					return data;
-				})
-				.then((res) => {
-					console.log(res);
-					return res;
-				})
-				.catch((error) => console.log(error));
-		};
-		fetchJobs();
-	}, []);
-
-	const onSubmit = async (e) => {
-		setloading(true);
-		e.preventDefault();
-		setJobs([]);
+	const fetchJobs = async () => {
 		setPage(1);
-		await getJobs(type, fulltime, location, page)
-			.then((data) => {
-				setJobs([...data]);
-				setloading(false);
-				return data;
+		dispatch({ type: "FETCH_LOADING" });
+		await getJobs()
+			.then((response) => {
+				dispatch({ type: `FETCH_SUCCESS`, payload: response });
 			})
 			.then((res) => {
 				return res;
 			})
-			.catch((error) => console.log(error));
+			.catch((error) => dispatch({ type: "FETCH_ERROR" }));
+	};
+
+	useEffect(() => {
+		fetchJobs();
+	}, []);
+
+	const onSubmit = async (e) => {
+		e.preventDefault();
+		fetchJobs();
 	};
 
 	const LoadMore = async (e) => {
 		e.preventDefault();
-		setloading(true);
-		console.log("Before LoadMore Jobs", jobs.length);
+		dispatch({ type: "FETCH_LOAD_MORE_LOADING" });
 		setPage(++page);
-		let data = await getJobs(type, fulltime, location, page);
-		console.log("data length", data.length);
-
-		setJobs((jobs) => [...jobs, ...data]);
-		setloading(false);
-		console.log("after LoadMore Jobs", jobs.length);
+		await getJobs(type, fulltime, location, page)
+			.then((response) => {
+				dispatch({ type: `FETCH_LOADMORE`, payload: response });
+			})
+			.then((res) => {
+				return res;
+			})
+			.catch((error) => dispatch({ type: "FETCH_ERROR" }));
 	};
+
+	console.log(state.jobs.length);
 
 	return (
 		<>
 			<div>
 				<SearchBar
 					onSubmit={onSubmit}
-					location={location}
+					location={state.location}
 					fulltime={fulltime}
 					type={type}
 					setType={setType}
 					setLocation={setLocation}
 					setFulltime={setFulltime}
 				/>
+				{state.loading && <h1>Loading...</h1>}
+				{state.error && <h1>Error. Try Refreshing.</h1>}
+				<>
+					{state.jobs.map((jo) => (
+						<>
+							<p>{jo.title}</p>;
+						</>
+					))}
+				</>
 			</div>
-			<JobsPagination page={page} setPage={setPage} LoadMore={LoadMore} />
-			{loading && <h1>Loading...</h1>}
-			{error && <h1>Error. Try Refreshing.</h1>}
-			<>
-				{jobs.map((jo) => (
-					<>
-						<p>{jo.title}</p>;
-					</>
-				))}
-			</>
+			<div>{state.loading && <h1>Loading...</h1>}</div>
+			<div>
+				<JobsPagination LoadMore={LoadMore} />
+			</div>
 		</>
 	);
 }
