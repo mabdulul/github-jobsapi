@@ -9,7 +9,7 @@ import "./App.css";
 const initalState = {
 	loading: true,
 	jobs: [],
-	error: " ",
+	error: false,
 };
 
 function reducer(state, action) {
@@ -35,12 +35,13 @@ function reducer(state, action) {
 			return {
 				loading: false,
 				jobs: [],
-				error: "Something went wrong",
+				error: true,
 			};
 		case "FETCH_LOAD_MORE_LOADING":
 			return {
-				...state,
 				loading: true,
+				jobs: [...state.jobs],
+				error: false,
 			};
 		case "FETCH_LOADMORE":
 			return { jobs: [...state.jobs, ...action.payload] };
@@ -55,11 +56,12 @@ function App() {
 	const [location, setLocation] = useState("");
 	const [fulltime, setFulltime] = useState(false);
 	const [state, dispatch] = useReducer(reducer, initalState);
+	const [jobsLength, setjobsLength] = useState("");
 
-	const fetchJobs = async () => {
-		setPage(1);
+	const fetchJobs = async (type, fulltime, location, page) => {
+		await setPage(1);
 		dispatch({ type: "FETCH_LOADING" });
-		await getJobs()
+		await getJobs(type, fulltime, location, 1)
 			.then((response) => {
 				dispatch({ type: `FETCH_SUCCESS`, payload: response });
 			})
@@ -75,16 +77,20 @@ function App() {
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		fetchJobs();
+
+		await fetchJobs(type, fulltime, location, page);
 	};
 
 	const LoadMore = async (e) => {
 		e.preventDefault();
+
 		dispatch({ type: "FETCH_LOAD_MORE_LOADING" });
 		setPage(++page);
+		console.log(state.jobs);
 		await getJobs(type, fulltime, location, page)
 			.then((response) => {
 				dispatch({ type: `FETCH_LOADMORE`, payload: response });
+				setjobsLength(state.jobs.length);
 			})
 			.then((res) => {
 				return res;
@@ -92,7 +98,7 @@ function App() {
 			.catch((error) => dispatch({ type: "FETCH_ERROR" }));
 	};
 
-	console.log(state.jobs.length);
+	let count = 1;
 
 	return (
 		<>
@@ -107,18 +113,31 @@ function App() {
 					setFulltime={setFulltime}
 				/>
 				{state.loading && <h1>Loading...</h1>}
-				{state.error && <h1>Error. Try Refreshing.</h1>}
+				{!!state.error}
 				<>
-					{state.jobs.map((jo) => (
+					{state.jobs.length === 0 && state.loading === false ? (
+						<p>No jobs found</p>
+					) : (
 						<>
-							<p>{jo.title}</p>;
+							{state.jobs.map((jo) => (
+								<>
+									<p>
+										{jo.title}:{count++}
+									</p>
+									;
+								</>
+							))}
 						</>
-					))}
+					)}
 				</>
 			</div>
 			<div>{state.loading && <h1>Loading...</h1>}</div>
 			<div>
-				<JobsPagination LoadMore={LoadMore} />
+				{jobsLength === state.jobs.length ? (
+					" "
+				) : (
+					<JobsPagination LoadMore={LoadMore} />
+				)}
 			</div>
 		</>
 	);
