@@ -2,6 +2,7 @@ import { useReducer } from "react";
 
 const initalState = {
 	loading: true,
+	loadingMore: false,
 	jobs: [],
 	error: false,
 };
@@ -33,12 +34,14 @@ const reducer = (state, action) => {
 			};
 		case "FETCH_LOAD_MORE_LOADING":
 			return {
-				loading: true,
+				loadingMore: true,
 				jobs: [...state.jobs],
-				error: false,
 			};
 		case "FETCH_LOADMORE":
-			return { jobs: [...state.jobs, ...action.payload] };
+			return {
+				loadingMore: false,
+				jobs: [...state.jobs, ...action.payload],
+			};
 		default:
 			return state;
 	}

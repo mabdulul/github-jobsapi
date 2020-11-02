@@ -17,7 +17,7 @@ function App() {
 	const [jobsLength, setjobsLength] = useState("");
 
 	const fetchJobs = async (type, fulltime, location, page) => {
-		await setPage(1);
+		setPage(1);
 		dispatch({ type: "FETCH_LOADING" });
 		await getJobs(type, fulltime, location, 1)
 			.then((response) => {
@@ -35,10 +35,9 @@ function App() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	const onSubmit = async (e) => {
+	const onSubmit = (e) => {
 		e.preventDefault();
-
-		await fetchJobs(type, fulltime, location, page);
+		fetchJobs(type, fulltime, location, page);
 	};
 
 	const LoadMore = async (e) => {
@@ -89,7 +88,7 @@ function App() {
 					)}
 				</>
 			</div>
-			<div>{state.loading && <h1>Loading...</h1>}</div>
+			<div>{state.loadingMore && <h1>Loading... More</h1>}</div>
 			<div>
 				{jobsLength === state.jobs.length ? (
 					" "
