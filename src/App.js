@@ -5,7 +5,11 @@ import useFetchJobs from "./component/useFetchJobs.js";
 import SearchBar from "./component/searchBar";
 import JobsPagination from "./component/JobsPagination";
 
-import "./App.css";
+import "normalize.css";
+import "./component/css/header.css";
+
+//Header images
+import Logo from "./component/images/devjobs.svg";
 
 function App() {
 	let [page, setPage] = useState(1);
@@ -60,15 +64,18 @@ function App() {
 	return (
 		<>
 			<div>
-				<SearchBar
-					onSubmit={onSubmit}
-					location={state.location}
-					fulltime={fulltime}
-					type={type}
-					setType={setType}
-					setLocation={setLocation}
-					setFulltime={setFulltime}
-				/>
+				<header className="header">
+					<img src={Logo} className="img-fluid" alt="logo" />
+					<SearchBar
+						onSubmit={onSubmit}
+						location={state.location}
+						fulltime={fulltime}
+						type={type}
+						setType={setType}
+						setLocation={setLocation}
+						setFulltime={setFulltime}
+					/>
+				</header>
 				{state.loading && <h1>Loading...</h1>}
 				{!!state.error}
 				<>
