@@ -1,61 +1,19 @@
 import React from "react";
-import { useState, useEffect, useReducer } from "react";
+import { useState, useEffect } from "react";
 import { getJobs } from "./component/apiFetch";
+import useFetchJobs from "./component/useFetchJobs.js";
 import SearchBar from "./component/searchBar";
 import JobsPagination from "./component/JobsPagination";
 
 import "./App.css";
-
-const initalState = {
-	loading: true,
-	jobs: [],
-	error: false,
-};
-
-function reducer(state, action) {
-	switch (action.type) {
-		case "FETCH_CLEAR":
-			return {
-				loading: true,
-				jobs: [],
-				error: " ",
-			};
-		case "FETCH_LOADING":
-			return {
-				loading: true,
-				jobs: [],
-			};
-		case "FETCH_SUCCESS":
-			return {
-				loading: false,
-				jobs: action.payload,
-				error: "",
-			};
-		case "FETCH_ERROR":
-			return {
-				loading: false,
-				jobs: [],
-				error: true,
-			};
-		case "FETCH_LOAD_MORE_LOADING":
-			return {
-				loading: true,
-				jobs: [...state.jobs],
-				error: false,
-			};
-		case "FETCH_LOADMORE":
-			return { jobs: [...state.jobs, ...action.payload] };
-		default:
-			return state;
-	}
-}
 
 function App() {
 	let [page, setPage] = useState(1);
 	const [type, setType] = useState("");
 	const [location, setLocation] = useState("");
 	const [fulltime, setFulltime] = useState(false);
-	const [state, dispatch] = useReducer(reducer, initalState);
+	const [state, dispatch] = useFetchJobs();
+
 	const [jobsLength, setjobsLength] = useState("");
 
 	const fetchJobs = async (type, fulltime, location, page) => {
@@ -72,7 +30,9 @@ function App() {
 	};
 
 	useEffect(() => {
+		//UseEffect only need to run once start
 		fetchJobs();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const onSubmit = async (e) => {
@@ -83,10 +43,8 @@ function App() {
 
 	const LoadMore = async (e) => {
 		e.preventDefault();
-
 		dispatch({ type: "FETCH_LOAD_MORE_LOADING" });
 		setPage(++page);
-		console.log(state.jobs);
 		await getJobs(type, fulltime, location, page)
 			.then((response) => {
 				dispatch({ type: `FETCH_LOADMORE`, payload: response });
