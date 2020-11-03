@@ -1,5 +1,8 @@
 import React from "react";
 
+import "./css/search.css";
+import Search from "./images/search_MandT.svg";
+
 const SearchBar = ({
 	onSubmit,
 	location,
@@ -12,29 +15,37 @@ const SearchBar = ({
 	return (
 		<>
 			<div>
-				<form onSubmit={onSubmit}>
+				<form onSubmit={onSubmit} className="SearchBar">
+					<img className="search-icon" src={Search} alt="search" srcset="" />
 					<input
+						className="Search_Input"
 						type="text"
-						placeholder="Title, Key Word, Companies"
+						placeholder="Filter by title, companies, expertise…"
 						name="type"
 						value={type}
 						onChange={(e) => setType(e.target.value)}
 					/>
 					<input
+						className="Search_Input"
 						type="text"
-						placeholder="Filter by Location"
+						placeholder="Filter by location…"
 						name="location"
 						value={location}
 						onChange={(e) => setLocation(e.target.value)}
 					/>
-					<input
-						type="checkbox"
-						name="fulltime"
-						value={fulltime}
-						onChange={(e) => setFulltime(!!!fulltime)}
-					/>
-					Fulltime
-					<button type="submit">Submit</button>
+					<label class="Search_container">
+						<p>Fulltime Only</p>
+						<input
+							className="Search_Input"
+							type="checkbox"
+							name="fulltime"
+							value={fulltime}
+							onChange={(e) => setFulltime(!!!fulltime)}
+						/>
+						<span class="checkmark"></span>
+					</label>
+
+					<button type="submit">Search</button>
 				</form>
 			</div>
 		</>

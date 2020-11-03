@@ -65,43 +65,50 @@ function App() {
 		<>
 			<div>
 				<header className="header">
-					<img src={Logo} className="img-fluid" alt="logo" />
-					<SearchBar
-						onSubmit={onSubmit}
-						location={state.location}
-						fulltime={fulltime}
-						type={type}
-						setType={setType}
-						setLocation={setLocation}
-						setFulltime={setFulltime}
-					/>
+					<div className="container">
+						<img src={Logo} className="img-fluid" alt="logo" />
+						<SearchBar
+							onSubmit={onSubmit}
+							location={state.location}
+							fulltime={fulltime}
+							type={type}
+							setType={setType}
+							setLocation={setLocation}
+							setFulltime={setFulltime}
+						/>
+					</div>
 				</header>
-				{state.loading && <h1>Loading...</h1>}
-				{!!state.error}
-				<>
-					{state.jobs.length === 0 && state.loading === false ? (
-						<p>No jobs found</p>
-					) : (
+				<div className="container">
+					<div className="row">
+						{state.loading && <h1>Loading...</h1>}
+						{!!state.error}
 						<>
-							{state.jobs.map((jo) => (
+							{state.jobs.length === 0 && state.loading === false ? (
+								<p>No jobs found</p>
+							) : (
 								<>
-									<p>
-										{jo.title}:{count++}
-									</p>
-									;
+									{state.jobs.map((jo) => (
+										<>
+											<p>
+												{jo.title}:{count++}
+											</p>
+											;
+										</>
+									))}
 								</>
-							))}
+							)}
 						</>
-					)}
-				</>
-			</div>
-			<div>{state.loadingMore && <h1>Loading... More</h1>}</div>
-			<div>
-				{jobsLength === state.jobs.length ? (
-					" "
-				) : (
-					<JobsPagination LoadMore={LoadMore} />
-				)}
+
+						<div>{state.loadingMore && <h1>Loading... More</h1>}</div>
+						<div>
+							{jobsLength === state.jobs.length ? (
+								" "
+							) : (
+								<JobsPagination LoadMore={LoadMore} />
+							)}
+						</div>
+					</div>
+				</div>
 			</div>
 		</>
 	);
