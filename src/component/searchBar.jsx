@@ -1,7 +1,8 @@
 import React from "react";
 
 import "./css/search.css";
-import Search from "./images/search_MandT.svg";
+import Search from "./images/icons/search_MandT.svg";
+import LocationIcon from "./images/icons/location.svg";
 
 const SearchBar = ({
 	onSubmit,
@@ -16,25 +17,35 @@ const SearchBar = ({
 		<>
 			<div>
 				<form onSubmit={onSubmit} className="SearchBar">
-					<img className="search-icon" src={Search} alt="search" srcset="" />
-					<input
-						className="Search_Input"
-						type="text"
-						placeholder="Filter by title, companies, expertise…"
-						name="type"
-						value={type}
-						onChange={(e) => setType(e.target.value)}
-					/>
-					<input
-						className="Search_Input"
-						type="text"
-						placeholder="Filter by location…"
-						name="location"
-						value={location}
-						onChange={(e) => setLocation(e.target.value)}
-					/>
-					<label class="Search_container">
-						<p>Fulltime Only</p>
+					<label>
+						<img className="search-icons" src={Search} alt="search" srcset="" />
+						<input
+							className="search_Input"
+							type="text"
+							placeholder="Filter by title, companies, expertise…"
+							name="type"
+							value={type}
+							onChange={(e) => setType(e.target.value)}
+						/>
+					</label>
+					<label>
+						<img
+							className="search-icons"
+							src={LocationIcon}
+							alt="LocationIcon"
+							srcset=""
+						/>
+						<input
+							className="Search_Input"
+							type="text"
+							placeholder="Filter by location…"
+							name="location"
+							value={location}
+							onChange={(e) => setLocation(e.target.value)}
+						/>
+					</label>
+					<label className="Search_container">
+						<span className="Search_FullTime">Fulltime Only</span>
 						<input
 							className="Search_Input"
 							type="checkbox"
@@ -42,6 +53,7 @@ const SearchBar = ({
 							value={fulltime}
 							onChange={(e) => setFulltime(!!!fulltime)}
 						/>
+
 						<span class="checkmark"></span>
 					</label>
 

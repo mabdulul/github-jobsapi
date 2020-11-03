@@ -9,6 +9,21 @@
     align-items: center;
    
 }
+.Search_container{
+    position: relative;
+    
+
+}
+.SearchBar label{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    border-left: 1px solid #6E8098;
+    border-right: 1px solid #6E8098;
+    border-top: none;
+    border-bottom: none;
+}
 input{
     outline: none;
     width: 100%;
@@ -18,17 +33,26 @@ input{
 
 }
 
-
-input:first-of-type{
+label:nth-of-type(3),
+label:first-of-type{
     border: none;
-} 
+}
+
 
 input{
+    border: none;
+}  
+
+.Search_FullTime{
+    margin-left: 72px;
+}
+
+/* input{
     border-left: 1px solid #6E8098;
     border-right: 1px solid #6E8098;
     border-top: none;
     border-bottom: none;
-}
+} */
 
 .Search_Type{
     display: flex;
@@ -36,17 +60,14 @@ input{
     
 }
 /* CheckBox Styles */
-.Search_container{
-    position: relative;
 
-}
 .Search_container input{
-    position: absolute;
+ position: absolute;
   opacity: 0;
   cursor: pointer;
   height: 0;
   width: 0;
-
+  
 }
 
 .checkmark {
@@ -56,10 +77,30 @@ input{
     height: 24px;
     width: 24px;
     background-color: #e7e8e9;
+    border-radius: 3px;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  
+  }
+  .Search_FullTime{
+   
+}
+  .Search_container:hover input ~ .checkmark {
+    background-color: #F4F5FD;
   }
 
   .Search_container input:checked ~ .checkmark {
     background-color: #5964E0
+  }
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  .Search_container input:checked ~ .checkmark:after {
+    display: block;
   }
 
   .Search_container .checkmark:after {
@@ -68,18 +109,19 @@ input{
     width: 5px;
     height: 10px;
     border: solid white;
-    border-width: 0 3px 3px 0;
+    border-width: 0 2px 2px 0;
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
+    
   }
 
 
 
 @media (min-width: 768px) {
-    .search-icon{
-        width: 24px;
-        height: 24px;
+    .search-icons{
+       margin-left: 16px;
+       margin-right: 24px;
     }
     .SearchBar{
         width: 689px;
@@ -88,16 +130,30 @@ input{
         /* I will need to git rid of this color */
         background: #FFFFFF;
     }
+    .checkmark{
+        margin-left: 32px;
+
+    }
+    .Search_FullTime{
+        margin-left: 60px;
+    }
     
   
  }
 
 
 @media (min-width: 992px) { 
+    .search-icons{
+        margin-right: 16px;
+        margin-left: 32px;
+     }
    .SearchBar{
     width: 1110px;
     height: 80px;
    }
+   .Search_FullTime{
+    margin-left: 72px;
+}
    
  }
 

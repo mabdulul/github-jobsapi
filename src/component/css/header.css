@@ -83,6 +83,8 @@ table {
         background-image: url("../images/header_mobile.svg");
         justify-content: center;
         display: flex;
+        background-size: cover;
+        background-repeat: no-repeat;
     }
     .row{
         margin-left: auto;
@@ -107,6 +109,7 @@ table {
 @media (min-width: 992px) { 
     .header{
         background-image: url("../images/header_desktop.svg");
+     
         padding-top: 81px;
         padding-bottom: 81px;
     }
