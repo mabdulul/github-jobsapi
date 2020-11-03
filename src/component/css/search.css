@@ -116,6 +116,18 @@ input{
     
   }
 
+  .btn{
+      background-color: #5964E0;
+      border-radius: 3px;
+      padding: 16px;
+      color: white;
+
+  }
+
+  .btn-search{
+      margin: 16px;
+  }
+
 
 
 @media (min-width: 768px) {

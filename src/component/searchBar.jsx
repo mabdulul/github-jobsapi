@@ -45,7 +45,7 @@ const SearchBar = ({
 						/>
 					</label>
 					<label className="Search_container">
-						<span className="Search_FullTime">Fulltime Only</span>
+						<span className="Search_FullTime">Fulltime</span>
 						<input
 							className="Search_Input"
 							type="checkbox"
@@ -54,10 +54,12 @@ const SearchBar = ({
 							onChange={(e) => setFulltime(!!!fulltime)}
 						/>
 
-						<span class="checkmark"></span>
+						<span className="checkmark"></span>
 					</label>
 
-					<button type="submit">Search</button>
+					<button className="btn btn-search" type="submit">
+						Search
+					</button>
 				</form>
 			</div>
 		</>
