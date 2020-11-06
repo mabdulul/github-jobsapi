@@ -1,125 +1,51 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
+
 @import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;400;700&display=swap');
 
 
-
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
-}
-body {
-    line-height: 1;
-    font-family: 'Kumbh Sans', sans-serif;
+*{
     box-sizing: border-box;
+}
+
+
+
+body{
+    margin: 0;
+    padding: 0;
     background-color: #F2F2F2;
-
-}
-button {line-height:inherit;
-background-color: transparent;
-border: transparent;
-}
-button::-moz-focus-inner {border:0}
-h1{
-    font-size: 28px;
-    line-height: 34px;
+    font-family: 'Kumbh Sans', sans-serif;
+    caret-color: #5964E0;
 }
 
-h2{
-    font-size: 24px;
-    line-height: 29px;
+a{
+    text-decoration: none;
 }
 
-h3{
-    font-size: 20px;
-    line-height: 24px;
-}
-h4{
-    font-size: 14px;
-    line-height: 18px;
+ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
-p{
-    font-size: 16px;
-    line-height: 26px;
+.header-logo{
+    background: url('../images/header_mobile.svg');
+    background-size: cover;
 }
-ol, ul {
-	list-style: none;
+
+.row{
+    margin: 0 auto;
 }
-blockquote, q {
-	quotes: none;
+
+.center-column{
+    margin: 0 auto;
+
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
+
+.company-logoHolder{
+    width: 50px;
+    height: 50px;
+
 }
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
+
+.company-logo{
+    width: 75%;
 }
-/******************************************************/
-
-    .header{
-        background-image: url("../images/header_mobile.svg");
-        justify-content: center;
-        display: flex;
-        background-size: cover;
-        background-repeat: no-repeat;
-    }
-    .row{
-        margin-left: auto;
-        margin-right: auto;
-    }
-
- 
-
-
-@media (min-width: 768px) {
-    .header{
-        background-image: url("../images/header_tablet.svg") ;
-        background-repeat: no-repeat;
-        padding-top: 80px;
-        padding-bottom: 80px;
-    }
-    
-  
- }
-
-
-@media (min-width: 992px) { 
-    .header{
-        background-image: url("../images/header_desktop.svg");
-     
-        padding-top: 81px;
-        padding-bottom: 81px;
-    }
-  
- }
-
-
-
-

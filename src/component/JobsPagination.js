@@ -3,7 +3,9 @@ import React from "react";
 export default function JobsPagination({ LoadMore }) {
 	return (
 		<div>
-			<button onClick={LoadMore}>Load More</button>
+			<button className="btn" onClick={LoadMore}>
+				Load More
+			</button>
 		</div>
 	);
 }

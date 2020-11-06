@@ -63,10 +63,18 @@ function App() {
 
 	return (
 		<>
-			<div>
-				<header className="header">
-					<div className="container">
-						<img src={Logo} className="img-fluid" alt="logo" />
+			<header className="header-logo">
+				<div className="container">
+					<div className="row">
+						<div className="col-sm-12 col-md-12 col-lg-12 ">
+							<img src={Logo} className="img-fluid" alt="logo" />
+						</div>
+					</div>
+				</div>
+			</header>
+			<div className="container">
+				<div className="row">
+					<div className="col-sm-12 col-md-12 col-lg-12 ">
 						<SearchBar
 							onSubmit={onSubmit}
 							location={state.location}
@@ -77,27 +85,50 @@ function App() {
 							setFulltime={setFulltime}
 						/>
 					</div>
-				</header>
-				<div className="container">
-					<div className="row">
+				</div>
+				<div className="row">
+					<div className="col-sm-12 col-md-12 col-lg-12 ">
 						{state.loading && <h1>Loading...</h1>}
 						{!!state.error}
-						<>
+						<div>
 							{state.jobs.length === 0 && state.loading === false ? (
 								<p>No jobs found</p>
 							) : (
 								<>
-									{state.jobs.map((jo) => (
-										<>
-											<p>
-												{jo.title}:{count++}
-											</p>
-											;
-										</>
-									))}
+									<>
+										<div>
+											{state.jobs.map((jo) => (
+												<div>
+													<ul key={jo.id}>
+														<li className="company-logoHolder">
+															{!jo.company_logo ? (
+																<p>Null</p>
+															) : (
+																<img
+																	src={jo.company_logo}
+																	alt="company-logo"
+																	className="company-logo"
+																/>
+															)}
+														</li>
+														<li>
+															{jo.created_at}
+															<span className="dot"></span>
+															<span className="type">{jo.type}</span>
+														</li>
+														<li>{jo.title}</li>
+														<li>{jo.company}</li>
+														<li>
+															<span>{jo.location}</span>
+														</li>
+													</ul>
+												</div>
+											))}
+										</div>
+									</>
 								</>
 							)}
-						</>
+						</div>
 
 						<div>{state.loadingMore && <h1>Loading... More</h1>}</div>
 						<div>
