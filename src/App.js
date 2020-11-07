@@ -6,10 +6,15 @@ import SearchBar from "./component/searchBar";
 import JobsPagination from "./component/JobsPagination";
 
 import "normalize.css";
+
+//CSS
 import "./component/css/header.css";
+import "./component/css/jobs.css";
 
 //Header images
 import Logo from "./component/images/devjobs.svg";
+import sun from "./component/images/icons/sun.svg";
+import moon from "./component/images/icons/moon.svg";
 
 function App() {
 	let [page, setPage] = useState(1);
@@ -59,15 +64,23 @@ function App() {
 			.catch((error) => dispatch({ type: "FETCH_ERROR" }));
 	};
 
-	let count = 1;
-
 	return (
 		<>
 			<header className="header-logo">
 				<div className="container">
 					<div className="row">
-						<div className="col-sm-12 col-md-12 col-lg-12 ">
-							<img src={Logo} className="img-fluid" alt="logo" />
+						<div className="col-sm-12 col-md-12 col-lg-12 col-header">
+							<div>
+								<img src={Logo} className="img-fluid" alt="logo" />
+							</div>
+							<div>
+								<img src={sun} alt="light" />
+								<label class="switch">
+									<input type="checkbox" />
+									<span class="slider round"></span>
+								</label>
+								<img src={moon} alt="light" />
+							</div>
 						</div>
 					</div>
 				</div>
@@ -96,13 +109,13 @@ function App() {
 							) : (
 								<>
 									<>
-										<div>
+										<div className="Jobs-wrapper">
 											{state.jobs.map((jo) => (
-												<div>
+												<div className="Job-single">
 													<ul key={jo.id}>
 														<li className="company-logoHolder">
 															{!jo.company_logo ? (
-																<p>Null</p>
+																<p className="company-logo">Null</p>
 															) : (
 																<img
 																	src={jo.company_logo}
@@ -111,14 +124,14 @@ function App() {
 																/>
 															)}
 														</li>
-														<li>
+														<li className="when-created">
 															{jo.created_at}
 															<span className="dot"></span>
 															<span className="type">{jo.type}</span>
 														</li>
-														<li>{jo.title}</li>
-														<li>{jo.company}</li>
-														<li>
+														<li className="title">{jo.title}</li>
+														<li className="company">{jo.company}</li>
+														<li className="location">
 															<span>{jo.location}</span>
 														</li>
 													</ul>
