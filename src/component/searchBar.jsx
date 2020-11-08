@@ -5,7 +5,7 @@ import Search from "./images/icons/search_MandT.svg";
 import LocationIcon from "./images/icons/location.svg";
 
 import drilldown from "./images/icons/drilldown.svg";
-
+import searchWhite from "./images/icons/white_search.svg";
 const SearchBar = ({
 	onSubmit,
 	location,
@@ -18,25 +18,45 @@ const SearchBar = ({
 	const [modaltoggleClass, setModaltoggleClass] = useState(true);
 	return (
 		<>
-			<div>
+			<div className="SearchBar-wrapper">
 				<form onSubmit={onSubmit} className="SearchBar">
-					<label>
-						<img className="search-icons" src={Search} alt="search" srcset="" />
-						<input
-							className="search_Input"
-							type="text"
-							placeholder="Filter by title, companies, expertise…"
-							name="type"
-							value={type}
-							onChange={(e) => setType(e.target.value)}
-						/>
+					<div className="mobile-search-holder">
 						<img
-							src={drilldown}
-							alt="drilldown"
+							className="search-icons only-display-on-tablet-and-Desktop"
+							src={Search}
+							alt="search"
 							srcset=""
-							onClick={() => setModaltoggleClass(!modaltoggleClass)}
 						/>
-					</label>
+						<div className="search_Input-holder">
+							<input
+								className="search_Input"
+								type="text"
+								placeholder="Filter by title..."
+								name="type"
+								value={type}
+								onChange={(e) => setType(e.target.value)}
+							/>
+						</div>
+						<div className="search_drilldown-holder search-holder">
+							<img
+								src={drilldown}
+								alt="drilldown"
+								srcset=""
+								onClick={() => setModaltoggleClass(!modaltoggleClass)}
+							/>
+						</div>
+						<div className="search-holder search-holder-white">
+							<button className="btn btn-search" type="submit">
+								<img
+									className="search-icons"
+									src={searchWhite}
+									alt="search"
+									srcset=""
+								/>
+							</button>
+						</div>
+					</div>
+
 					<div className={modaltoggleClass ? "search-modal-mobile" : ""}>
 						<label>
 							<img
@@ -66,11 +86,10 @@ const SearchBar = ({
 
 							<span className="checkmark"></span>
 						</label>
+						<button className="btn btn-search" type="submit">
+							Search
+						</button>
 					</div>
-
-					<button className="btn btn-search" type="submit">
-						Search
-					</button>
 				</form>
 			</div>
 		</>
