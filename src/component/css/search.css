@@ -8,6 +8,13 @@
     display: none;
 }
 
+
+.search-modal{
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100vw;
+}
+
+
 .only-display-on-tablet-and-Desktop{
     display: none;
 }
@@ -60,5 +67,7 @@
      border-radius: 5px;
 
 }
+
+/* className={modaltoggleClass ? "search-modal-mobile" : "" */
 
 

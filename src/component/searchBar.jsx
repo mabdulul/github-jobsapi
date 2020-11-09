@@ -58,37 +58,39 @@ const SearchBar = ({
 					</div>
 
 					<div className={modaltoggleClass ? "search-modal-mobile" : ""}>
-						<label>
-							<img
-								className="search-icons"
-								src={LocationIcon}
-								alt="LocationIcon"
-								srcset=""
-							/>
-							<input
-								className="Search_Input"
-								type="text"
-								placeholder="Filter by location…"
-								name="location"
-								value={location}
-								onChange={(e) => setLocation(e.target.value)}
-							/>
-						</label>
-						<label className="Search_container">
-							<span className="Search_FullTime">Fulltime</span>
-							<input
-								className="Search_Input"
-								type="checkbox"
-								name="fulltime"
-								value={fulltime}
-								onChange={(e) => setFulltime(!!!fulltime)}
-							/>
+						<div className="search-modal">
+							<label>
+								<img
+									className="search-icons"
+									src={LocationIcon}
+									alt="LocationIcon"
+									srcset=""
+								/>
+								<input
+									className="Search_Input"
+									type="text"
+									placeholder="Filter by location…"
+									name="location"
+									value={location}
+									onChange={(e) => setLocation(e.target.value)}
+								/>
+							</label>
+							<label className="Search_container">
+								<span className="Search_FullTime">Fulltime</span>
+								<input
+									className="Search_Input"
+									type="checkbox"
+									name="fulltime"
+									value={fulltime}
+									onChange={(e) => setFulltime(!!!fulltime)}
+								/>
 
-							<span className="checkmark"></span>
-						</label>
-						<button className="btn btn-search" type="submit">
-							Search
-						</button>
+								<span className="checkmark"></span>
+							</label>
+							<button className="btn btn-search" type="submit">
+								Search
+							</button>
+						</div>
 					</div>
 				</form>
 			</div>
