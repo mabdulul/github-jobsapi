@@ -8,6 +8,18 @@
     display: none;
 }
 
+.search_drilldown-holder button{
+    background-color: transparent;
+    outline: none
+}
+.search_drilldown-holder button:hover,
+.search_drilldown-holder button:focus{
+    border: transparent !important;
+    outline: transparent !important;
+    background-color: transparent !important;
+    box-shadow: 0 0 0 0.2rem rgb(255 255 255 / 11%) !important;
+}
+
 
 .search-modal{
     background-color: rgba(0, 0, 0, 0.5);

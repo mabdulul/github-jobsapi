@@ -6,6 +6,8 @@ import LocationIcon from "./images/icons/location.svg";
 
 import drilldown from "./images/icons/drilldown.svg";
 import searchWhite from "./images/icons/white_search.svg";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 const SearchBar = ({
 	onSubmit,
 	location,
@@ -15,7 +17,11 @@ const SearchBar = ({
 	setLocation,
 	setFulltime,
 }) => {
-	const [modaltoggleClass, setModaltoggleClass] = useState(true);
+	const [show, setShow] = useState(false);
+
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
+
 	return (
 		<>
 			<div className="SearchBar-wrapper">
@@ -38,12 +44,9 @@ const SearchBar = ({
 							/>
 						</div>
 						<div className="search_drilldown-holder search-holder">
-							<img
-								src={drilldown}
-								alt="drilldown"
-								srcset=""
-								onClick={() => setModaltoggleClass(!modaltoggleClass)}
-							/>
+							<Button className="btn-modal" onClick={handleShow}>
+								<img src={drilldown} alt="drilldown" srcset="" />
+							</Button>
 						</div>
 						<div className="search-holder search-holder-white">
 							<button className="btn btn-search" type="submit">
@@ -57,8 +60,8 @@ const SearchBar = ({
 						</div>
 					</div>
 
-					<div className={modaltoggleClass ? "search-modal-mobile" : ""}>
-						<div className="search-modal">
+					<Modal show={show} onHide={handleClose}>
+						<div>
 							<label>
 								<img
 									className="search-icons"
@@ -91,7 +94,7 @@ const SearchBar = ({
 								Search
 							</button>
 						</div>
-					</div>
+					</Modal>
 				</form>
 			</div>
 		</>
