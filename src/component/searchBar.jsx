@@ -31,7 +31,6 @@ const SearchBar = ({
 							className="search-icons only-display-on-tablet-and-Desktop"
 							src={Search}
 							alt="search"
-							srcset=""
 						/>
 						<div className="search_Input-holder">
 							<input
@@ -43,57 +42,58 @@ const SearchBar = ({
 								onChange={(e) => setType(e.target.value)}
 							/>
 						</div>
-						<div className="search_drilldown-holder search-holder">
+						<div className="search_drilldown-holder search-holder-modal">
 							<Button className="btn-modal" onClick={handleShow}>
-								<img src={drilldown} alt="drilldown" srcset="" />
+								<img src={drilldown} alt="drilldown" />
 							</Button>
 						</div>
 						<div className="search-holder search-holder-white">
 							<button className="btn btn-search" type="submit">
-								<img
-									className="search-icons"
-									src={searchWhite}
-									alt="search"
-									srcset=""
-								/>
+								<img className="search-icons" src={searchWhite} alt="search" />
 							</button>
 						</div>
 					</div>
 
-					<Modal show={show} onHide={handleClose}>
-						<div>
-							<label>
-								<img
-									className="search-icons"
-									src={LocationIcon}
-									alt="LocationIcon"
-									srcset=""
-								/>
-								<input
-									className="Search_Input"
-									type="text"
-									placeholder="Filter by location…"
-									name="location"
-									value={location}
-									onChange={(e) => setLocation(e.target.value)}
-								/>
-							</label>
-							<label className="Search_container">
-								<span className="Search_FullTime">Fulltime</span>
-								<input
-									className="Search_Input"
-									type="checkbox"
-									name="fulltime"
-									value={fulltime}
-									onChange={(e) => setFulltime(!!!fulltime)}
-								/>
+					<Modal show={show} onHide={handleClose} animation={false}>
+						<form onSubmit={onSubmit}>
+							<div className="mobile-search-holder-modal">
+								<div className="modal-location">
+									<div>
+										<img
+											className="search-icons search-icon-modal"
+											src={LocationIcon}
+											alt="LocationIcon"
+										/>
+										<input
+											className="Search_Input"
+											type="text"
+											placeholder="Filter by location…"
+											name="location"
+											value={location}
+											onChange={(e) => setLocation(e.target.value)}
+										/>
+									</div>
+								</div>
+								<hr className="searchModal-hr" />
+								<div className="Search_container">
+									<div>
+										<span className="Search_FullTime">Fulltime</span>
+										<input
+											className="Search_Input"
+											type="checkbox"
+											name="fulltime"
+											value={fulltime}
+											onChange={(e) => setFulltime(!!!fulltime)}
+										/>
 
-								<span className="checkmark"></span>
-							</label>
-							<button className="btn btn-search" type="submit">
-								Search
-							</button>
-						</div>
+										<span className="checkmark"></span>
+									</div>
+								</div>
+								<button className="btn btn-search" type="submit">
+									Search
+								</button>
+							</div>
+						</form>
 					</Modal>
 				</form>
 			</div>

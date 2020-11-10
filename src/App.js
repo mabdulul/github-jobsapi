@@ -75,9 +75,9 @@ function App() {
 							</div>
 							<div>
 								<img src={sun} alt="light" />
-								<label class="switch">
+								<label className="switch">
 									<input type="checkbox" />
-									<span class="slider round"></span>
+									<span className="slider round"></span>
 								</label>
 								<img src={moon} alt="light" />
 							</div>
@@ -111,7 +111,7 @@ function App() {
 									<>
 										<div className="Jobs-wrapper">
 											{state.jobs.map((jo) => (
-												<div className="Job-single">
+												<div className="Job-single" key={jo.id}>
 													<ul key={jo.id}>
 														<li className="company-logoHolder">
 															{!jo.company_logo ? (

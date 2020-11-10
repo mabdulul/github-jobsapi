@@ -42,8 +42,20 @@
     justify-content: space-between;
     
 }
+.mobile-search-holder-modal{
+    background-color: #ffff;
+    border-radius: 6px;
+    margin: 0 auto;
+    width: 100%;
 
-.SearchBar input{
+    display: grid;
+    grid-template-rows: 2fr 1fr 1fr;
+    align-content: center;
+
+}
+
+.SearchBar input,
+.mobile-search-holder-modal input{
     border: none;
     outline: none;
 }
@@ -59,19 +71,50 @@
 }
 
 
-.search_Input-holder input{
+.search_Input-holder input,
+.modal-location,
+.Search_container{
     height: 100%;
     width: 100%;
     margin-left: 24px;
 }
+.modal-location,
+.Search_container{
+    display: grid;
+    align-content: center;   
+}
+
+.modal-location div{
+    margin: 24px 0px 24px 0px;
+}
+
+.search-icon-modal{
+    margin-right: 18px;
+}
 
 
 
+.searchModal-hr{
+    padding: 0px;
+    margin: 0px;
+}
 
 
-.search-holder-white{
+.btn{
     background-color: #5964E0 ;
     border-radius: 5px;
+    color: white;
+    
+}
+
+.searchModal-hr{
+    width: 100%;
+    opacity: 0.2;
+    background-color: #6E8098;
+}
+
+.search-holder-white{
+   
     margin: 1rem 1rem 1rem 1.5rem;
 }
 .search-holder button{
